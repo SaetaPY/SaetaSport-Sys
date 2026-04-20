@@ -974,9 +974,9 @@
                 timestamp: new Date().toISOString()
             };
             
-            // Probar conexión básica
+            // Probar conexión básica contra endpoint real del worker
             try {
-                const testResponse = await fetch(API_BASE, {
+                const testResponse = await fetch(`${API_BASE}/api/health`, {
                     method: 'GET',
                     cache: 'no-cache',
                     headers: {
@@ -1024,14 +1024,14 @@
                     mensaje += '\n🔗 Probando endpoints:\n';
                     
                     try {
-                        const testUsuarios = await fetch(`${API_BASE}/api/usuarios`, { method: 'HEAD' });
+                        const testUsuarios = await fetch(`${API_BASE}/api/usuarios`, { method: 'GET' });
                         mensaje += `• /api/usuarios: ${testUsuarios.ok ? '✅' : '❌'} (${testUsuarios.status})\n`;
                     } catch (e) {
                         mensaje += `• /api/usuarios: ❌ (${e.message})\n`;
                     }
                     
                     try {
-                        const testPedidos = await fetch(`${API_BASE}/api/pedidos`, { method: 'HEAD' });
+                        const testPedidos = await fetch(`${API_BASE}/api/pedidos`, { method: 'GET' });
                         mensaje += `• /api/pedidos: ${testPedidos.ok ? '✅' : '❌'} (${testPedidos.status})\n`;
                     } catch (e) {
                         mensaje += `• /api/pedidos: ❌ (${e.message})\n`;
