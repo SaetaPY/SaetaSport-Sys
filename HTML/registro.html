@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- Mirrored from planilla.saetasport.club/registro by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Apr 2026 11:31:41 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Saeta - Registro de Usuario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .register-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .register-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .back-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #764ba2;
+        }
+
+        .info-box {
+            background: #f8f9ff;
+            border: 1px solid #e0e8ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .info-box ul {
+            color: #666;
+            padding-left: 20px;
+            line-height: 1.6;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background: #efe;
+            color: #3c3;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <div class="logo">👤</div>
+        <h1>Registro de Usuario</h1>
+        <p class="subtitle">Crea tu cuenta para gestionar tus pedidos</p>
+        
+        <div class="info-box">
+            <h3>📋 Información del Registro</h3>
+            <ul>
+                <li><strong>Usuario:</strong> Tu número de C.I. (solo números)</li>
+                <li><strong>Contraseña:</strong> Tu nombre completo</li>
+                <li>Podrás ver y gestionar solo tus pedidos</li>
+                <li>Tus datos se auto-completarán en futuros pedidos</li>
+            </ul>
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="ci">Número de C.I. *</label>
+                <input type="text" id="ci" name="ci" placeholder="Ej: 12345678" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Nombre Completo *</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Ej: juan@email.com">
+            </div>
+
+            <div class="form-group">
+                <label for="telefono">Teléfono</label>
+                <input type="tel" id="telefono" name="telefono" placeholder="Ej: 0981123456">
+            </div>
+
+            <button type="submit" class="register-btn" id="registerBtn">
+                Registrarse
+            </button>
+        </form>
+
+        <p>
+            <a href="login-usuario.html" class="back-link">← ¿Ya tienes cuenta? Inicia sesión</a>
+        </p>
+    </div>
+
+    <script>
+        const API_BASE = 'https://saeta-worker-api.saetasport-py.workers.dev/api';
+        
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            const registerBtn = document.getElementById('registerBtn');
+            
+            // Limpiar mensajes
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            // Obtener datos del formulario
+            const ci = document.getElementById('ci').value.trim();
+            const nombre = document.getElementById('nombre').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            
+            // Validaciones
+            if (!ci || !nombre) {
+                showError('Por favor completa todos los campos obligatorios');
+                return;
+            }
+            
+            // Validar que C.I. solo contenga números
+            if (!/^\d+$/.test(ci)) {
+                showError('El C.I. debe contener solo números');
+                return;
+            }
+            
+            if (ci.length < 6 || ci.length > 8) {
+                showError('El C.I. debe tener entre 6 y 8 dígitos');
+                return;
+            }
+            
+            registerBtn.disabled = true;
+            registerBtn.textContent = 'Registrando...';
+            
+            try {
+                const userData = {
+                    ci: ci,
+                    nombre: nombre,
+                    email: email,
+                    telefono: telefono,
+                    fecha_registro: new Date().toISOString()
+                };
+                
+                const response = await fetch(`${API_BASE}/usuarios/registrar`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showSuccess('¡Registro exitoso! Redirigiendo al login...');
+                    setTimeout(() => {
+                        window.location.href = 'login-usuario.html';
+                    }, 2000);
+                } else {
+                    showError(result.message || 'Error al registrar usuario');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error de conexión. Por favor intenta nuevamente.');
+            } finally {
+                registerBtn.disabled = false;
+                registerBtn.textContent = 'Registrarse';
+            }
+        });
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+        }
+        
+        // Formatear C.I. mientras se escribe
+        document.getElementById('ci').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Solo números
+            if (value.length > 8) {
+                value = value.substring(0, 8);
+            }
+            e.target.value = value;
+        });
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"6be696fff01b4f678457fbc35a74d781","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from planilla.saetasport.club/registro by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Apr 2026 11:31:41 GMT -->
+</html>

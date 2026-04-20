@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- Mirrored from planilla.saetasport.club/chatbot by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Apr 2026 11:31:42 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Saeta - Chatbot</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .layout {
+            display: flex;
+            gap: 20px;
+        }
+
+        .sidebar {
+            width: 220px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            height: fit-content;
+            position: sticky;
+            top: 20px;
+        }
+
+        .sidebar-title {
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6c757d;
+            margin-bottom: 8px;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #343a40;
+            font-weight: 600;
+            font-size: 14px;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .sidebar-link:hover {
+            background: #e9f0ff;
+            color: #1e3c72;
+            transform: translateX(2px);
+        }
+
+        .sidebar-link-active {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: #ffffff;
+        }
+
+        .main-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .header-content {
+            text-align: center;
+            flex: 1;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        .info-box {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .info-box h2 {
+            margin-bottom: 10px;
+        }
+
+        .info-box p {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        @media (max-width: 992px) {
+            .layout {
+                flex-direction: column;
+            }
+
+            .sidebar {
+                width: 100%;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                overflow-x: auto;
+                position: static;
+            }
+
+            .sidebar-title {
+                margin-bottom: 0;
+                margin-right: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="layout">
+            <aside class="sidebar">
+                <div class="sidebar-title">Navegación</div>
+                <a href="admin.html" class="sidebar-link">📊 Dashboard</a>
+                <a href="chatbot.html" class="sidebar-link sidebar-link-active">🤖 Chatbot</a>
+            </aside>
+            <div class="main-content">
+                <div class="header">
+                    <div class="header-content">
+                        <h1>🤖 Centro de Chatbot</h1>
+                        <p>Aquí vas a configurar y ver los mensajes de WhatsApp e Instagram.</p>
+                    </div>
+                </div>
+
+                <div class="info-box">
+                    <h2>Próximos pasos</h2>
+                    <p>1. Conseguir acceso al API de WhatsApp (Cloud API o un proveedor como Twilio/360dialog).</p>
+                    <p>2. Configurar un webhook que apunte a tu backend/Cloudflare Worker.</p>
+                    <p>3. Guardar los mensajes en tu base de datos y mostrarlos en esta pantalla.</p>
+                    <p>Cuando tengas el acceso al API, dime y armamos aquí la UI para ver conversaciones y responder mensajes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"6be696fff01b4f678457fbc35a74d781","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from planilla.saetasport.club/chatbot by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Apr 2026 11:31:42 GMT -->
+</html>

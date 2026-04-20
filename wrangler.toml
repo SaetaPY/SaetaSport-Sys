@@ -1,0 +1,17 @@
+name = "saeta-worker-api"
+main = "Sistema.js"
+compatibility_date = "2026-04-20"
+workers_dev = true
+
+# Reemplazar con el ID de tu cuenta de Cloudflare.
+# Puedes verlo en Workers & Pages > Overview.
+account_id = "8b5f5b658fa368466eb863fdfaab47aa"
+
+[[kv_namespaces]]
+binding = "SAETA_PEDIDOS"
+id = "a148db09ebbd46c3ab904296acf1d718"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "saeta_db"
+database_id = "70d0b5f5-b388-454f-85ce-b05a994765ef"

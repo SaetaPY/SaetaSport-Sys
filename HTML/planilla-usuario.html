@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- Mirrored from planilla.saetasport.club/planilla-usuario by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Apr 2026 11:31:42 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Saeta - Mi Planilla de Pedidos</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: linear-gradient(45deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            border-radius: 10px 10px 0 0;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 15px;
+            left: 20px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .back-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .user-info-header {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+
+        .content {
+            background: white;
+            padding: 30px;
+            border-radius: 0 0 10px 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .form-section {
+            background: #f8f9ff;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-left: 4px solid #2a5298;
+            border-radius: 8px;
+        }
+
+        .section-title {
+            font-size: 1.4em;
+            font-weight: 600;
+            color: #2a5298;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        .readonly {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        .productos-section {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+
+        .planilla-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 22px;
+            background: white;
+            border: 1px solid #ddd;
+            font-size: 16px;
+        }
+
+        .planilla-table th,
+        .planilla-table td {
+            padding: 12px 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            vertical-align: middle;
+        }
+
+        .planilla-table th {
+            background: #2a5298;
+            color: white;
+            font-weight: 600;
+            font-size: 15px;
+            padding: 15px 10px;
+        }
+
+        .planilla-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .planilla-table input.form-control,
+        .planilla-table select.form-control {
+            width: 100%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            background: white;
+        }
+
+        .planilla-table input.form-control:focus,
+        .planilla-table select.form-control:focus {
+            outline: none;
+            border-color: #2a5298;
+            box-shadow: 0 0 0 2px rgba(42, 82, 152, 0.1);
+        }
+
+        .btn-control {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0 5px;
+        }
+
+        .btn-control:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .btn-control.secondary {
+            background: #6c757d;
+        }
+
+        .btn-control.secondary:hover {
+            background: #5a6268;
+        }
+
+        .resumen {
+            background: #e8f5e8;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .resumen h3 {
+            color: #155724;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+            text-align: center;
+            color: #155724;
+            background: #d4edda;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+
+        .producto-item {
+            background: #fafbff;
+            border: 1px solid #e0e8ff;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .producto-item:hover {
+            border-color: #2a5298;
+            box-shadow: 0 3px 10px rgba(42, 82, 152, 0.1);
+        }
+
+        .producto-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 15px;
+            gap: 15px;
+        }
+
+        .producto-numero {
+            background: #2a5298;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        .eliminar-producto {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8em;
+            transition: all 0.3s;
+        }
+
+        .eliminar-producto:hover {
+            background: #c82333;
+        }
+
+        .tallas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .talla-item {
+            text-align: center;
+        }
+
+        .talla-item label {
+            display: block;
+            font-size: 0.8em;
+            font-weight: 600;
+            color: #2a5298;
+            margin-bottom: 5px;
+        }
+
+        .talla-item input {
+            padding: 8px 4px;
+            text-align: center;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+        }
+
+        .agregar-producto {
+            background: linear-gradient(45deg, #28a745, #20c997);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .agregar-producto:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.4);
+        }
+
+        .botones-finales {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .btn-principal {
+            background: linear-gradient(45deg, #2a5298, #1e3c72);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .btn-principal:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(42, 82, 152, 0.4);
+        }
+
+        .btn-secundario {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 200px;
+        }
+
+        .btn-secundario:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .btn-principal:disabled,
+        .btn-secundario:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            display: none;
+        }
+
+        .loading-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 300px;
+        }
+
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #2a5298;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 1px solid transparent;
+        }
+
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+            border-color: #c3e6cb;
+        }
+
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+
+        .alert-info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border-color: #bee5eb;
+        }
+
+        @media (max-width: 768px) {
+            .back-btn, .user-info-header {
+                position: static;
+                margin-bottom: 10px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tallas-grid {
+                grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+            }
+
+            .botones-finales {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-principal, .btn-secundario {
+                min-width: auto;
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <button type="button" class="back-btn" onclick="confirmarVolver()">← Volver</button>
+            <div class="user-info-header" id="userInfoHeader">Usuario</div>
+            <h1>🏆 Mi Nueva Planilla</h1>
+            <p>Crea tu pedido personalizado con datos pre-cargados</p>
+        </div>
+
+        <div class="content">
+            <!-- Alertas -->
+            <div id="alertContainer"></div>
+
+            <!-- Información del Cliente (Pre-llenada y bloqueada) -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span>👤</span>
+                    Información del Cliente
+                </div>
+                <div class="alert alert-info">
+                    <strong>Información:</strong> Tus datos personales se cargan automáticamente y no pueden ser editados. Si necesitas cambiarlos, contacta al administrador.
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Nombre Completo</label>
+                        <input type="text" id="nombreCompleto" class="readonly" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>C.I.</label>
+                        <input type="text" id="ci" class="readonly" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="email" class="readonly" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label>Teléfono</label>
+                        <input type="tel" id="telefono" class="readonly" readonly>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Información Adicional del Pedido -->
+            <div class="form-section">
+                <div class="section-title">
+                    <span>📝</span>
+                    Información del Pedido
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="club">Club/Institución</label>
+                        <input type="text" id="club" placeholder="Nombre del club o institución">
+                    </div>
+                    <div class="form-group">
+                        <label for="modalidad">Modalidad</label>
+                        <input type="text" id="modalidad" placeholder="Ej: Fútbol, Básquet, Hockey, etc.">
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="direccion">Dirección</label>
+                        <input type="text" id="direccion" placeholder="Dirección completa">
+                    </div>
+                    <div class="form-group">
+                        <label for="fechaEntrega">Fecha de Entrega Deseada</label>
+                        <input type="date" id="fechaEntrega">
+                    </div>
+                </div>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="tipoEntrega">Tipo de Entrega</label>
+                        <select id="tipoEntrega">
+                            <option value="local">Retiro en Local</option>
+                            <option value="domicilio">Entrega a Domicilio</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="observaciones">Observaciones Generales</label>
+                    <textarea id="observaciones" rows="3" placeholder="Cualquier observación especial para tu pedido..."></textarea>
+                </div>
+            </div>
+
+            <!-- Productos -->
+            <div class="productos-section">
+                <div class="section-title">
+                    <span>👕</span>
+                    Planilla de Productos
+                </div>
+                
+                <!-- Imagen de Referencia -->
+                <div class="form-group">
+                    <label for="imagenReferencia">📷 Imagen de Referencia</label>
+                    <input type="file" id="imagenReferencia" accept="image/*" onchange="cargarImagen(this)">
+                    <div id="previewImagen" style="display: none; margin-top: 15px;">
+                        <img id="imagenPreview" style="max-width: 200px; max-height: 200px; border-radius: 8px; border: 2px solid #ddd;">
+                    </div>
+                </div>
+
+                <!-- Tabla de la Planilla -->
+                <table class="planilla-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 25%;">Nombre y Apellido</th>
+                            <th style="width: 15%;">Número</th>
+                            <th style="width: 20%;">Remera</th>
+                            <th style="width: 20%;">Short</th>
+                            <th style="width: 20%;">Medias</th>
+                        </tr>
+                    </thead>
+                    <tbody id="planillaBody">
+                        <!-- Se llena dinámicamente -->
+                    </tbody>
+                </table>
+
+                <!-- Botones de Control -->
+                <div style="text-align: center; margin-top: 20px;">
+                    <button type="button" class="btn-control" onclick="agregarFila()">
+                        ➕ Agregar Fila
+                    </button>
+                    <button type="button" class="btn-control secondary" onclick="limpiarPlanilla()">
+                        🗑️ Limpiar Planilla
+                    </button>
+                </div>
+
+                <!-- Resumen del Pedido -->
+                <div id="resumen" class="resumen" style="display: none;">
+                    <h3>📋 Resumen del Pedido</h3>
+                    <div id="resumenProductos"></div>
+                    <div id="total" class="total">Total: 0 productos</div>
+                </div>
+            </div>
+
+            <!-- Botones Finales -->
+            <div class="botones-finales">
+                <button type="button" class="btn-secundario" onclick="guardarBorrador()">
+                    💾 Guardar Borrador
+                </button>
+                <button type="button" class="btn-principal" onclick="enviarPedido()">
+                    📤 Enviar Pedido
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="spinner"></div>
+            <div id="loadingText">Procesando...</div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://saeta-worker-api.saetasport-py.workers.dev/';
+        let usuarioActual = null;
+        let editandoPedido = null;
+        let filasPlanilla = [];
+        let imagenBase64 = null;
+
+        // === CONFIGURACIÓN DE TALLES ===
+        const BASE_TALLES = ['2','4','6','8','10','12','14','16','18','PP','P','M','G','G+','GG','3G','4G','5G','6G'];
+        const SUFIJOS_GENERO = ['Masculino','Femenino'];
+        const buildTallesConGenero = (lista) => lista.flatMap(t => SUFIJOS_GENERO.map(g => `${t} ${g}`));
+        const TALLES = {
+            remera: buildTallesConGenero(BASE_TALLES),
+            short:  buildTallesConGenero(BASE_TALLES)
+        };
+
+        // Construye las opciones de un <select> a partir de una lista de valores
+        function buildOptions(values, selected) {
+            const base = ['<option value="">--</option>'];
+            const opts = values.map(v => `<option value="${v}" ${selected === v ? 'selected' : ''}>${v}</option>`);
+            return base.concat(opts).join('');
+        }
+
+        // === FUNCIONES DE IMAGEN ===
+        function cargarImagen(input) {
+            const file = input.files[0];
+            if (file) {
+                // Validar tipo de archivo
+                if (!file.type.startsWith('image/index.html')) {
+                    mostrarAlerta('error', 'Por favor selecciona un archivo de imagen válido');
+                    input.value = '';
+                    return;
+                }
+                
+                // Validar tamaño (máximo 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    mostrarAlerta('error', 'La imagen es demasiado grande. Máximo 5MB.');
+                    input.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    // Crear canvas para redimensionar si es necesario
+                    const img = new Image();
+                    img.onload = function() {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        
+                        // Calcular nuevas dimensiones (máximo 800x600)
+                        let { width, height } = img;
+                        const maxWidth = 800;
+                        const maxHeight = 600;
+                        
+                        if (width > maxWidth || height > maxHeight) {
+                            const ratio = Math.min(maxWidth / width, maxHeight / height);
+                            width *= ratio;
+                            height *= ratio;
+                        }
+                        
+                        canvas.width = width;
+                        canvas.height = height;
+                        
+                        // Redimensionar imagen
+                        ctx.drawImage(img, 0, 0, width, height);
+                        
+                        // Convertir a base64 con compresión
+                        imagenBase64 = canvas.toDataURL('image/jpeg', 0.8);
+                        
+                        document.getElementById('imagenPreview').src = imagenBase64;
+                        document.getElementById('previewImagen').style.display = 'block';
+                    };
+                    img.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // === FUNCIONES DE LA PLANILLA ===
+        
+        // Inicializar planilla con 10 filas vacías
+        function inicializarPlanilla() {
+            filasPlanilla = [];
+            for (let i = 0; i < 10; i++) {
+                filasPlanilla.push({
+                    nombre: '',
+                    numero: '',
+                    talle: '',
+                    short: '',
+                    medias: ''
+                });
+            }
+            renderizarPlanilla();
+        }
+        
+        // Renderizar la planilla en la tabla
+        function renderizarPlanilla() {
+            const tbody = document.getElementById('planillaBody');
+            tbody.innerHTML = '';
+            
+            filasPlanilla.forEach((fila, index) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td><input type="text" class="form-control" value="${fila.nombre}" 
+                            onchange="actualizarFilaPlanilla(${index}, 'nombre', this.value)"></td>
+                        <td><input type="number" class="form-control" value="${fila.numero}" 
+                                onchange="actualizarFilaPlanilla(${index}, 'numero', this.value)" 
+                                oninput="validarNumero(this)"
+                                onkeypress="return soloNumeros(event)"
+                                min="1" max="999" maxlength="3"
+                                placeholder="Nº"></td>
+                    <td>
+                        <select class="form-control" onchange="actualizarFilaPlanilla(${index}, 'talle', this.value)">
+                            ${buildOptions(TALLES.remera, fila.talle)}
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" onchange="actualizarFilaPlanilla(${index}, 'short', this.value)">
+                            ${buildOptions(TALLES.short, fila.short)}
+                        </select>
+                    </td>
+                    <td>
+                        <select class="form-control" onchange="actualizarFilaPlanilla(${index}, 'medias', this.value)">
+                            <option value="">--</option>
+                            <option value="Si" ${fila.medias === 'Si' ? 'selected' : ''}>Si</option>
+                            <option value="No" ${fila.medias === 'No' ? 'selected' : ''}>No</option>
+                        </select>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+        
+        // Validar campo de número (máximo 2 dígitos)
+        function validarNumero(input) {
+            let value = input.value.replace(/[^0-9]/g, '');
+            if (value.length > 3) {
+                value = value.substring(0, 3);
+            }
+            input.value = value;
+        }
+        
+        // Permitir solo números en keypress
+        function soloNumeros(event) {
+            const char = String.fromCharCode(event.which);
+            if (!/[0-9]/.test(char)) {
+                event.preventDefault();
+                return false;
+            }
+            
+            if (event.target.value.length >= 3) {
+                event.preventDefault();
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Actualizar una celda de la planilla
+        function actualizarFilaPlanilla(index, campo, valor) {
+            filasPlanilla[index][campo] = valor;
+            actualizarResumen();
+        }
+        
+        // Agregar nueva fila a la planilla
+        function agregarFila() {
+            filasPlanilla.push({
+                nombre: '',
+                numero: '',
+                talle: '',
+                short: '',
+                medias: ''
+            });
+            renderizarPlanilla();
+        }
+        
+        // Limpiar toda la planilla
+        function limpiarPlanilla() {
+            if (confirm('¿Está seguro de que desea limpiar toda la planilla?')) {
+                inicializarPlanilla();
+                actualizarResumen();
+            }
+        }
+        
+        // Calcular cantidades basadas en los datos de la planilla
+        function calcularCantidadesDePlanilla() {
+            const tallesValidosRemera = new Set(TALLES.remera);
+            const tallesValidosShort = new Set(TALLES.short);
+            let cantidadRemeras = 0;
+            let cantidadShorts = 0;
+            let cantidadMedias = 0;
+            let filasConDatos = 0;
+            
+            filasPlanilla.forEach(fila => {
+                const tieneDatos = fila.nombre || fila.numero || fila.talle || fila.short || fila.medias;
+                if (tieneDatos) {
+                    filasConDatos++;
+                }
+                
+                if (fila.talle && tallesValidosRemera.has(fila.talle)) {
+                    cantidadRemeras++;
+                }
+                
+                if (fila.short && tallesValidosShort.has(fila.short)) {
+                    cantidadShorts++;
+                }
+                
+                if (fila.medias === 'Si') {
+                    cantidadMedias++;
+                }
+            });
+            
+            if (cantidadRemeras === 0 && filasConDatos > 0) {
+                cantidadRemeras = 1;
+            }
+            
+            return {
+                remeras: cantidadRemeras,
+                shorts: cantidadShorts,
+                medias: cantidadMedias,
+                filasConDatos: filasConDatos
+            };
+        }
+
+        // Actualizar resumen del pedido
+        function actualizarResumen() {
+            const resumenDiv = document.getElementById('resumen');
+            const resumenProductos = document.getElementById('resumenProductos');
+            const totalDiv = document.getElementById('total');
+            
+            const tieneDatosPlanilla = filasPlanilla.some(fila => 
+                fila.nombre || fila.numero || fila.talle || fila.short || fila.medias
+            );
+            
+            if (!tieneDatosPlanilla) {
+                resumenDiv.style.display = 'none';
+                return;
+            }
+            
+            const cantidades = calcularCantidadesDePlanilla();
+            
+            // Calcular talles únicos para remeras con sus cantidades
+            const tallesRemeras = {};
+            filasPlanilla.forEach(fila => {
+                if (fila.talle && TALLES.remera.includes(fila.talle)) {
+                    tallesRemeras[fila.talle] = (tallesRemeras[fila.talle] || 0) + 1;
+                }
+            });
+            
+            // Calcular talles únicos para shorts con sus cantidades
+            const tallesShorts = {};
+            filasPlanilla.forEach(fila => {
+                if (fila.short && TALLES.short.includes(fila.short)) {
+                    tallesShorts[fila.short] = (tallesShorts[fila.short] || 0) + 1;
+                }
+            });
+            
+            let resumenTexto = '<div style="text-align: left;">';
+            
+            // Mostrar remeras
+            if (cantidades.remeras > 0) {
+                const tallesRemerasTexto = Object.entries(tallesRemeras)
+                    .map(([talle, cantidad]) => `${cantidad}(${talle})`)
+                    .join(', ');
+                resumenTexto += `<p><strong>👕 Remeras:</strong> ${cantidades.remeras} unidades - ${tallesRemerasTexto}</p>`;
+            }
+            
+            // Mostrar shorts
+            if (cantidades.shorts > 0) {
+                const tallesShortsTexto = Object.entries(tallesShorts)
+                    .map(([talle, cantidad]) => `${cantidad}(${talle})`)
+                    .join(', ');
+                resumenTexto += `<p><strong>🩳 Shorts:</strong> ${cantidades.shorts} unidades - ${tallesShortsTexto}</p>`;
+            }
+            
+            // Mostrar medias
+            if (cantidades.medias > 0) {
+                resumenTexto += `<p><strong>🧦 Medias:</strong> ${cantidades.medias} pares</p>`;
+            }
+            
+            resumenTexto += '</div>';
+            
+            resumenProductos.innerHTML = resumenTexto;
+            totalDiv.textContent = `Total: ${cantidades.filasConDatos} filas con datos`;
+            resumenDiv.style.display = 'block';
+        }
+
+        function confirmarVolver() {
+            // Si estamos editando un pedido, confirmar antes de salir
+            if (editandoPedido) {
+                if (confirm('¿Estás seguro de que quieres salir? Los cambios no guardados se perderán.')) {
+                    window.location.href = 'dashboard.html';
+                }
+            } else {
+                // Si es un pedido nuevo, verificar si hay datos ingresados
+                const tieneDatos = filasPlanilla.some(fila => 
+                    fila.nombre || fila.numero || fila.talle || fila.short || fila.medias
+                ) || document.getElementById('club').value || 
+                    document.getElementById('direccion').value || 
+                    document.getElementById('observaciones').value;
+                
+                if (tieneDatos) {
+                    if (confirm('¿Estás seguro de que quieres salir? Los datos ingresados se perderán.')) {
+                        window.location.href = 'dashboard.html';
+                    }
+                } else {
+                    window.location.href = 'dashboard.html';
+                }
+            }
+        }
+
+        // Inicialización
+        window.addEventListener('load', async function() {
+            await verificarAutenticacion();
+            await inicializarFormulario();
+        });
+
+        // Prevenir salida accidental cuando hay datos sin guardar
+        window.addEventListener('beforeunload', function(e) {
+            const tieneDatos = editandoPedido || filasPlanilla.some(fila => 
+                fila.nombre || fila.numero || fila.talle || fila.short || fila.medias
+            ) || document.getElementById('club').value || 
+                document.getElementById('direccion').value || 
+                document.getElementById('observaciones').value;
+            
+            if (tieneDatos) {
+                e.preventDefault();
+                e.returnValue = ''; // Para navegadores modernos
+                return '¿Estás seguro de que quieres salir? Los cambios no guardados se perderán.';
+            }
+        });
+
+        async function verificarAutenticacion() {
+            const usuario = localStorage.getItem('usuario_saeta');
+            if (!usuario) {
+                window.location.href = 'login-usuario.html';
+                return;
+            }
+
+            try {
+                usuarioActual = JSON.parse(usuario);
+                
+                // Verificar si la sesión no es muy antigua (24 horas)
+                const loginTime = new Date(usuarioActual.login_time);
+                const now = new Date();
+                const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+                
+                if (hoursDiff >= 24) {
+                    localStorage.removeItem('usuario_saeta');
+                    window.location.href = 'login-usuario.html';
+                    return;
+                }
+
+                // Mostrar información del usuario
+                document.getElementById('userInfoHeader').textContent = usuarioActual.nombre;
+            } catch (e) {
+                localStorage.removeItem('usuario_saeta');
+                window.location.href = 'login-usuario.html';
+            }
+        }
+
+        async function inicializarFormulario() {
+            if (!usuarioActual) return;
+
+            // Verificar si se está editando un pedido existente
+            const urlParams = new URLSearchParams(window.location.search);
+            const editarId = urlParams.get('editar');
+
+            if (editarId) {
+                await cargarPedidoParaEditar(editarId);
+            } else {
+                // Pre-llenar con datos del usuario
+                prellenarDatosUsuario();
+                // Inicializar planilla vacía
+                inicializarPlanilla();
+            }
+
+            // Configurar fecha mínima (hoy)
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('fechaEntrega').min = today;
+        }
+
+        function prellenarDatosUsuario() {
+            document.getElementById('nombreCompleto').value = usuarioActual.nombre || '';
+            document.getElementById('ci').value = usuarioActual.ci || '';
+            document.getElementById('email').value = usuarioActual.email || '';
+            document.getElementById('telefono').value = usuarioActual.telefono || '';
+        }
+
+        async function cargarPedidoParaEditar(idPedido) {
+            mostrarLoading('Cargando datos del pedido...');
+            
+            try {
+                console.log('🔍 Cargando pedido:', idPedido);
+                console.log('🌐 URL:', `${API_BASE}/api/pedidos/${idPedido}`);
+                
+                const response = await fetch(`${API_BASE}/api/pedidos/${idPedido}`);
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response ok:', response.ok);
+                
+                const result = await response.json();
+                console.log('📋 Result:', result);
+                console.log('✅ Success:', result.success);
+                console.log('📄 Data exists:', !!result.data);
+
+                if (result.success && result.data) {
+                    editandoPedido = result.data;
+                    console.log('✅ Pedido cargado exitosamente:', editandoPedido.id_pedido);
+                    
+                    // Cambiar título
+                    document.querySelector('.header h1').innerHTML = '✏️ Editando Mi Pedido';
+                    document.querySelector('.header p').textContent = `Modificando pedido #${idPedido}`;
+                    
+                    // Pre-llenar formulario
+                    prellenarDatosUsuario();
+                    
+                    // Cargar datos del pedido
+                    if (editandoPedido.club) {
+                        document.getElementById('club').value = editandoPedido.club;
+                    }
+                    if (editandoPedido.modalidad) {
+                        document.getElementById('modalidad').value = editandoPedido.modalidad;
+                    }
+                    if (editandoPedido.direccion) {
+                        document.getElementById('direccion').value = editandoPedido.direccion;
+                    }
+                    if (editandoPedido.fecha_entrega) {
+                        document.getElementById('fechaEntrega').value = editandoPedido.fecha_entrega;
+                    }
+                    if (editandoPedido.tipo_entrega) {
+                        document.getElementById('tipoEntrega').value = editandoPedido.tipo_entrega;
+                    }
+                    if (editandoPedido.observaciones || editandoPedido.comentarios) {
+                        document.getElementById('observaciones').value = editandoPedido.observaciones || editandoPedido.comentarios;
+                    }
+
+                    // Cargar imagen si existe
+                    if (editandoPedido.imagen_referencia) {
+                        imagenBase64 = editandoPedido.imagen_referencia;
+                        document.getElementById('imagenPreview').src = imagenBase64;
+                        document.getElementById('previewImagen').style.display = 'block';
+                    }
+
+                    // Cargar planilla existente
+                    cargarPlanillaExistente(editandoPedido);
+                    
+                    // Cambiar texto del botón
+                    document.querySelector('.botones-finales .btn-principal').innerHTML = '✏️ Actualizar Pedido';
+                    
+                    mostrarAlerta('info', 'Editando pedido existente. Los cambios se guardarán al enviar.');
+                } else {
+                    console.error('❌ Error en respuesta del API:');
+                    console.error('Success:', result.success);
+                    console.error('Data:', result.data);
+                    console.error('Message:', result.message);
+                    console.error('Result completo:', result);
+                    mostrarAlerta('error', 'Error cargando el pedido para editar');
+                    setTimeout(() => window.location.href = 'dashboard.html', 2000);
+                }
+            } catch (error) {
+                console.error('❌ Error en catch:', error);
+                mostrarAlerta('error', 'Error de conexión al cargar el pedido');
+            } finally {
+                ocultarLoading();
+            }
+        }
+
+        function cargarPlanillaExistente(pedido) {
+            console.log('📋 Cargando planilla existente...');
+            console.log('🔍 Pedido completo:', pedido);
+            console.log('📄 pedido.filas:', pedido.filas);
+            console.log('📄 pedido.planilla_completa:', pedido.planilla_completa);
+            console.log('🔍 Tipo de filas:', typeof pedido.filas);
+            console.log('🔍 Tipo de planilla_completa:', typeof pedido.planilla_completa);
+            
+            // Intentar cargar desde diferentes formatos de datos
+            let planillaData = null;
+            
+            // Prioridad: filas > planilla_completa > productos (conversión)
+            if (pedido.filas) {
+                console.log('✅ Intentando cargar desde pedido.filas...');
+                try {
+                    let filasData = pedido.filas;
+                    
+                    // Si es string, parsearlo
+                    if (typeof filasData === 'string') {
+                        filasData = JSON.parse(filasData);
+                    }
+                    
+                    // Si después del primer parse sigue siendo string, parsearlo otra vez (casos de doble stringify)
+                    if (typeof filasData === 'string') {
+                        console.log('⚠️ Detectado doble stringify, parseando nuevamente...');
+                        filasData = JSON.parse(filasData);
+                    }
+                    
+                    planillaData = filasData;
+                    console.log('✅ Filas parseadas exitosamente:', planillaData);
+                } catch (e) {
+                    console.error('❌ Error parseando filas:', e);
+                    console.error('❌ Contenido de filas:', pedido.filas);
+                }
+            } else if (pedido.planilla_completa) {
+                console.log('✅ Intentando cargar desde pedido.planilla_completa...');
+                try {
+                    planillaData = Array.isArray(pedido.planilla_completa) ? pedido.planilla_completa : 
+                                  typeof pedido.planilla_completa === 'string' ? JSON.parse(pedido.planilla_completa) : null;
+                    console.log('✅ Planilla completa procesada:', planillaData);
+                } catch (e) {
+                    console.error('❌ Error parseando planilla_completa:', e);
+                    console.error('❌ Contenido de planilla_completa:', pedido.planilla_completa);
+                }
+            } else {
+                console.log('⚠️ No se encontraron datos de planilla en el pedido');
+            }
+
+            if (planillaData && Array.isArray(planillaData) && planillaData.length > 0) {
+                console.log('✅ Planilla data válida encontrada:', planillaData);
+                console.log('📊 Número de filas:', planillaData.length);
+                
+                // Cargar planilla existente
+                filasPlanilla = planillaData.map((fila, index) => {
+                    console.log(`📝 Procesando fila ${index}:`, fila);
+                    return {
+                        nombre: fila.nombre || '',
+                        numero: fila.numero || '',
+                        talle: fila.talle || '',
+                        short: fila.short || '',
+                        medias: fila.medias || ''
+                    };
+                });
+                
+                console.log('📋 Filas procesadas:', filasPlanilla);
+                
+                // Asegurar que tenemos al menos 10 filas
+                while (filasPlanilla.length < 10) {
+                    filasPlanilla.push({
+                        nombre: '',
+                        numero: '',
+                        talle: '',
+                        short: '',
+                        medias: ''
+                    });
+                }
+                
+                console.log('📋 Filas finales (con relleno):', filasPlanilla);
+            } else {
+                console.log('⚠️ No se encontraron datos válidos de planilla, inicializando vacía...');
+                console.log('🔍 planillaData:', planillaData);
+                console.log('🔍 Es array?', Array.isArray(planillaData));
+                console.log('🔍 Longitud:', planillaData ? planillaData.length : 'N/A');
+                
+                // Si no hay datos de planilla, inicializar vacía
+                inicializarPlanilla();
+            }
+            
+            // Renderizar y actualizar resumen
+            renderizarPlanilla();
+            actualizarResumen();
+        }
+
+        async function guardarBorrador() {
+            const datosFormulario = recopilarDatosFormulario();
+            if (!datosFormulario) return;
+
+            mostrarLoading('Guardando borrador...');
+
+            try {
+                const pedidoData = {
+                    ...datosFormulario,
+                    estado: 'borrador',
+                    es_borrador: true
+                };
+
+                const url = editandoPedido 
+                    ? `${API_BASE}/api/pedidos/${editandoPedido.id_pedido}/actualizar`
+                    : `${API_BASE}/api/pedidos`;
+                
+                const method = editandoPedido ? 'PUT' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(pedidoData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    mostrarAlerta('success', '✅ Borrador guardado exitosamente');
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                } else {
+                    mostrarAlerta('error', result.message || 'Error al guardar el borrador');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarAlerta('error', 'Error de conexión al guardar el borrador');
+            } finally {
+                ocultarLoading();
+            }
+        }
+
+        async function enviarPedido() {
+            const datosFormulario = recopilarDatosFormulario();
+            if (!datosFormulario) return;
+
+            mostrarLoading(editandoPedido ? 'Actualizando pedido...' : 'Enviando pedido...');
+
+            try {
+                const pedidoData = {
+                    ...datosFormulario,
+                    estado: 'pendiente',
+                    es_borrador: false
+                };
+
+                const url = editandoPedido 
+                    ? `${API_BASE}/api/pedidos/${editandoPedido.id_pedido}/actualizar`
+                    : `${API_BASE}/api/pedidos`;
+                
+                const method = editandoPedido ? 'PUT' : 'POST';
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(pedidoData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    const mensaje = editandoPedido 
+                        ? '✅ Pedido actualizado exitosamente'
+                        : '🎉 ¡Pedido enviado exitosamente!';
+                    
+                    mostrarAlerta('success', mensaje);
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 2000);
+                } else {
+                    mostrarAlerta('error', result.message || 'Error al procesar el pedido');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                mostrarAlerta('error', 'Error de conexión al procesar el pedido');
+            } finally {
+                ocultarLoading();
+            }
+        }
+
+        function recopilarDatosFormulario() {
+            // Validar datos básicos
+            const club = document.getElementById('club').value;
+            const modalidad = document.getElementById('modalidad').value;
+            const direccion = document.getElementById('direccion').value;
+            const fechaEntrega = document.getElementById('fechaEntrega').value;
+            const tipoEntrega = document.getElementById('tipoEntrega').value;
+            const observaciones = document.getElementById('observaciones').value;
+
+            // Validar que hay datos en la planilla
+            const tieneDatosPlanilla = filasPlanilla.some(fila => 
+                fila.nombre || fila.numero || fila.talle || fila.short || fila.medias
+            );
+            
+            if (!tieneDatosPlanilla) {
+                mostrarAlerta('error', 'Debe completar al menos una fila en la planilla');
+                return null;
+            }
+
+            // Calcular cantidades para compatibilidad con el sistema anterior
+            const cantidades = calcularCantidadesDePlanilla();
+
+            return {
+                // Datos del cliente (del usuario logueado)
+                nombre_completo: usuarioActual.nombre,
+                ci: usuarioActual.ci,
+                email: usuarioActual.email,
+                telefono: usuarioActual.telefono,
+                
+                // Nuevos campos agregados
+                club: club,
+                modalidad: modalidad,
+                direccion: direccion,
+                
+                // Datos del pedido
+                fecha_entrega: fechaEntrega,
+                tipo_entrega: tipoEntrega,
+                observaciones: observaciones,
+                
+                // Datos de la planilla (formato compatible con el sistema original)
+                filas: JSON.stringify(filasPlanilla),
+                cantidades: JSON.stringify(cantidades),
+                productos_seleccionados: JSON.stringify([]), // Array vacío por compatibilidad
+                planilla_completa: filasPlanilla,
+                
+                // Imagen si existe
+                imagen_referencia: imagenBase64,
+                
+                // Metadata
+                fecha_creacion: new Date().toISOString(),
+                fecha_pedido: new Date().toISOString(),
+                usuario_ci: usuarioActual.ci
+            };
+        }
+
+        function mostrarAlerta(tipo, mensaje) {
+            const container = document.getElementById('alertContainer');
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${tipo}`;
+            alertDiv.textContent = mensaje;
+            
+            container.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                if (alertDiv.parentNode) {
+                    alertDiv.parentNode.removeChild(alertDiv);
+                }
+            }, 5000);
+
+            // Scroll to top para ver la alerta
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function mostrarLoading(texto) {
+            document.getElementById('loadingText').textContent = texto;
+            document.getElementById('loadingOverlay').style.display = 'flex';
+        }
+
+        function ocultarLoading() {
+            document.getElementById('loadingOverlay').style.display = 'none';
+        }
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"6be696fff01b4f678457fbc35a74d781","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from planilla.saetasport.club/planilla-usuario by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Apr 2026 11:31:42 GMT -->
+</html>

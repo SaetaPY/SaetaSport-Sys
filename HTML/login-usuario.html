@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<!-- Mirrored from planilla.saetasport.club/login-usuario by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Apr 2026 11:31:38 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema Saeta - Login Usuario</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .logo {
+            font-size: 3em;
+            margin-bottom: 20px;
+            color: #667eea;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            color: #666;
+            font-size: 1em;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .login-btn {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .login-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .back-link, .register-link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover, .register-link:hover {
+            color: #764ba2;
+        }
+
+        .info-box {
+            background: #f8f9ff;
+            border: 1px solid #e0e8ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .info-box p {
+            color: #666;
+            margin-bottom: 8px;
+            font-size: 0.9em;
+        }
+
+        .info-box strong {
+            color: #667eea;
+        }
+
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .success-message {
+            background: #efe;
+            color: #3c3;
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">👤</div>
+        <h1>Iniciar Sesión</h1>
+        <p class="subtitle">Accede a tu cuenta de usuario</p>
+        
+        <div class="info-box">
+            <p><strong>Usuario:</strong> Tu número de C.I.</p>
+            <p><strong>Contraseña:</strong> Tu nombre completo</p>
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+        <div id="successMessage" class="success-message"></div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="ci">Número de C.I.</label>
+                <input type="text" id="ci" name="ci" placeholder="Ej: 12345678" required>
+            </div>
+
+            <div class="form-group">
+                <label for="nombre">Nombre Completo</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+            </div>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                Iniciar Sesión
+            </button>
+        </form>
+
+        <div class="links">
+            <a href="index.html" class="back-link">← Volver al inicio</a>
+            <a href="registro.html" class="register-link">¿No tienes cuenta? Regístrate →</a>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'https://saeta-worker-api.saetasport-py.workers.dev/api';
+        
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const errorDiv = document.getElementById('errorMessage');
+            const successDiv = document.getElementById('successMessage');
+            const loginBtn = document.getElementById('loginBtn');
+            
+            // Limpiar mensajes
+            errorDiv.style.display = 'none';
+            successDiv.style.display = 'none';
+            
+            // Obtener datos del formulario
+            const ci = document.getElementById('ci').value.trim();
+            const nombre = document.getElementById('nombre').value.trim();
+            
+            // Validaciones
+            if (!ci || !nombre) {
+                showError('Por favor completa todos los campos');
+                return;
+            }
+            
+            // Validar que C.I. solo contenga números
+            if (!/^\d+$/.test(ci)) {
+                showError('El C.I. debe contener solo números');
+                return;
+            }
+            
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Verificando...';
+            
+            try {
+                const loginData = {
+                    ci: ci,
+                    nombre: nombre
+                };
+                
+                const response = await fetch(`${API_BASE}/usuarios/login`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(loginData)
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Guardar datos de sesión
+                    localStorage.setItem('usuario_saeta', JSON.stringify({
+                        ci: result.usuario.ci,
+                        nombre: result.usuario.nombre,
+                        email: result.usuario.email,
+                        telefono: result.usuario.telefono,
+                        login_time: new Date().toISOString()
+                    }));
+                    
+                    showSuccess('¡Login exitoso! Redirigiendo...');
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1500);
+                } else {
+                    showError(result.message || 'Credenciales incorrectas');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                showError('Error de conexión. Por favor intenta nuevamente.');
+            } finally {
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Iniciar Sesión';
+            }
+        });
+        
+        function showError(message) {
+            const errorDiv = document.getElementById('errorMessage');
+            errorDiv.textContent = message;
+            errorDiv.style.display = 'block';
+        }
+        
+        function showSuccess(message) {
+            const successDiv = document.getElementById('successMessage');
+            successDiv.textContent = message;
+            successDiv.style.display = 'block';
+        }
+        
+        // Formatear C.I. mientras se escribe
+        document.getElementById('ci').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, ''); // Solo números
+            if (value.length > 8) {
+                value = value.substring(0, 8);
+            }
+            e.target.value = value;
+        });
+        
+        // Verificar si ya hay sesión activa
+        window.addEventListener('load', function() {
+            const usuario = localStorage.getItem('usuario_saeta');
+            if (usuario) {
+                try {
+                    const userData = JSON.parse(usuario);
+                    // Verificar si la sesión no es muy antigua (24 horas)
+                    const loginTime = new Date(userData.login_time);
+                    const now = new Date();
+                    const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+                    
+                    if (hoursDiff < 24) {
+                        showSuccess('Ya tienes una sesión activa. Redirigiendo...');
+                        setTimeout(() => {
+                            window.location.href = 'dashboard.html';
+                        }, 1000);
+                    } else {
+                        // Sesión expirada
+                        localStorage.removeItem('usuario_saeta');
+                    }
+                } catch (e) {
+                    localStorage.removeItem('usuario_saeta');
+                }
+            }
+        });
+    </script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"6be696fff01b4f678457fbc35a74d781","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from planilla.saetasport.club/login-usuario by HTTrack Website Copier/3.x [XR&CO'2014], Mon, 20 Apr 2026 11:31:39 GMT -->
+</html>
